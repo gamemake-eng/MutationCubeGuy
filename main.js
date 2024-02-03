@@ -19,9 +19,12 @@ let cubeC = H.createGroup(app);
 let cubes = [];
 let ds = [];
 let cd = 0;
+let gen = 0;
 
 let deadCount = document.getElementById("dead")
 let bestCount = document.getElementById("best")
+let genCount = document.getElementById("generation")
+
 for (let i = 0; i < 4; i++) {
   let sprite = new Cube(start,start,(Math.random()*3)+1,(Math.random()*3)+1,app,cubeC)
   cubes.push(sprite)
@@ -36,6 +39,7 @@ H.setUpdate(() => {
     
     e.update();
     e.deadcubes = deadcubes
+    genCount.innerText = `Generation: ${gen}`
     deadCount.innerText = `Dead: ${cd}`
     if(e.state == 'dead'){
       ds.push(e.x)
@@ -48,13 +52,14 @@ H.setUpdate(() => {
 
     if(e.x > app.screen.width){
       if(cd == 0){
-        bestCount.innerText = `Best Of Last Gen: ${e.x}\nBest X speed: ${e.sx}\nBest Y speed: ${e.sy}`
+        bestCount.innerText = `Best Of Last Gen: ${e.x} Best X speed: ${e.sx}  Best Y speed: ${e.sy}`
         cubes.forEach((e,i) => {cubeC.removeChild(e.sprite);})
         cubes = []
       }else{
        cubes.forEach((e,i) => {cubeC.removeChild(e.sprite);})
        cubes = []
        bestCount.innerText = `Best Of Last Gen: ${e.x}`
+
         for (let i = 0; i < 4; i++) {
         
           let sprite = new Cube(start,start,(e.sx+(H.getRandom(-1,1))),(e.sy+(H.getRandom(-1,1))),app,cubeC)
@@ -63,6 +68,7 @@ H.setUpdate(() => {
         
         } 
         cd = 0;
+        gen += 1;
       }
 
       
@@ -70,7 +76,7 @@ H.setUpdate(() => {
 
     }
 
-    if(cubes.length == 0) {
+    if(cubes.length == 0 && cd == 4) {
       
       for(var i = 0; i < ds.length; i++)
       {
@@ -92,6 +98,7 @@ H.setUpdate(() => {
       }
       ds = []
       cd = 0
+      gen += 1;
      
     }
       
