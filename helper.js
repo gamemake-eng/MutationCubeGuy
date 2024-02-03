@@ -1,17 +1,18 @@
-const createStage = (options) => {
+import * as PIXI from 'pixi.js';
+export const createStage = (options) => {
 	let app = new PIXI.Application(options);
 	document.body.appendChild(app.view);
 
 	return app;
 }
 
-const createGroup = (app) => {
+export const createGroup = (app) => {
 	const container = new PIXI.Container();
 	app.stage.addChild(container);
 	return container;
 }
 
-const createSprite = (file, x, y, app, group=undefined) => {
+export const createSprite = (file, x, y, app, group=undefined) => {
 	let rat;
 	if (group != undefined) {
 		rat = PIXI.Sprite.from(file);
@@ -29,11 +30,11 @@ const createSprite = (file, x, y, app, group=undefined) => {
 	return rat;
 }
 
-const setUpdate = (update, app) => {
+export const setUpdate = (update, app) => {
 	app.ticker.add(update);
 
 }
 
-const clamp = (val, min, max) => Math.min(Math.max(val, min), max)
+export const clamp = (val, min, max) => Math.min(Math.max(val, min), max)
 
 
