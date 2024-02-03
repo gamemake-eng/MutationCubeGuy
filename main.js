@@ -8,7 +8,7 @@ let cubeC = H.createGroup(app);
 let cubes = [];
 let ds = [];
 for (let i = 0; i < 4; i++) {
-  let sprite = new Cube(0,(i*(32*2))+32,(Math.random()*3)+1,(Math.random()*3)+1,app,cubeC)
+  let sprite = new Cube(0,0,(Math.random()*3)+1,(Math.random()*3)+1,app,cubeC)
   cubes.push(sprite)
 
   
@@ -33,7 +33,7 @@ H.setUpdate(() => {
       cubes = []
       for (let i = 0; i < 4; i++) {
         
-        let sprite = new Cube(0,(i*(32*2))+32,(e.sx+(H.getRandom(-1,1))),(e.sy+(H.getRandom(-1,1))),app,cubeC)
+        let sprite = new Cube(0,0,(e.sx+(H.getRandom(-1,1))),(e.sy+(H.getRandom(-1,1))),app,cubeC)
         cubes.push(sprite)
       
         
@@ -41,7 +41,7 @@ H.setUpdate(() => {
 
     }
 
-    if(cubes.length == 0) {
+    if(cubes.length == 1) {
       
       for(var i = 0; i < ds.length; i++)
       {
@@ -55,7 +55,7 @@ H.setUpdate(() => {
       for (let i = 0; i < 4; i++) {
         let win = deadcubes[ds[ds.length-1]]
         console.log(win)
-        let sprite = new Cube(0,(i*(32*2))+32,(win[0]+(H.getRandom(-1,1))),(win[1]+(H.getRandom(-1,1))),app,cubeC)
+        let sprite = new Cube(0,0,(e.sx+(H.getRandom(-1,1))),(e.sy+(H.getRandom(-1,1))),app,cubeC)
         cubes.push(sprite)
       
         
