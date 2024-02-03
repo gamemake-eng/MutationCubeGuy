@@ -25,8 +25,8 @@ export class Cube {
         this.sprite.y = this.y
         if(this.state==States.ALIVE){
             H.clamp(this.sx, -10, 10)
-            this.x += H.clamp(this.sx, -100, 100)/2
-            this.y += H.clamp(this.sy, -100, 100)/2
+            this.x += this.sx
+            this.y += this.sy
 
             if(this.x < 0){
 
