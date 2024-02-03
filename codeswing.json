@@ -1,0 +1,6 @@
+{
+  "scripts": [
+    "https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.4.0/pixi.js"
+  ],
+  "styles": []
+}
