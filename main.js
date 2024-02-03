@@ -21,6 +21,10 @@ let ds = [];
 let cd = 0;
 let gen = 0;
 
+let simdone = false
+let bestsx = 0;
+let bestsy = 0;
+
 let deadCount = document.getElementById("dead")
 let bestCount = document.getElementById("best")
 let genCount = document.getElementById("generation")
@@ -41,70 +45,91 @@ H.setUpdate(() => {
     e.deadcubes = deadcubes
     genCount.innerText = `Generation: ${gen}`
     deadCount.innerText = `Dead: ${cd}`
-    if(e.state == 'dead'){
-      ds.push(e.x)
-      cubeC.removeChild(e.sprite);
-      cubes.splice(i,1);
-      cd += 1
-      
-      
-    }
+    if(simdone){
+      if(e.state == 'dead'){
+        
+        cubeC.removeChild(e.sprite);
+        cubes.splice(i,1);
+        let sprite = new Cube(start,start,bestsx,bestsy,app,cubeC)
+        cubes.push(sprite)
+        
+        
+      }
 
-    if(e.x > app.screen.width){
-      if(cd == 0){
-        bestCount.innerText = `Best Of Last Gen: ${e.x} Best X speed: ${e.sx}  Best Y speed: ${e.sy}`
+    }else{
+
+      if(e.state == 'dead'){
+        ds.push(e.x)
+        cubeC.removeChild(e.sprite);
+        cubes.splice(i,1);
+        cd += 1
+        
+        
+      }
+
+      if(e.x > app.screen.width){
+        
+        if(cd == 0){
+          bestCount.innerText = `Best Of Last Gen: ${e.x} Best X speed: ${e.sx}  Best Y speed: ${e.sy}`
+          bestsx = e.sx
+          bestsy = e.sy
+          simdone = true
+          cubes.forEach((e,i) => {cubeC.removeChild(e.sprite);})
+          cubes = []
+          let sprite = new Cube(start,start,bestsx,bestsy,app,cubeC)
+        cubes.push(sprite)
+        }else{
         cubes.forEach((e,i) => {cubeC.removeChild(e.sprite);})
         cubes = []
-      }else{
-       cubes.forEach((e,i) => {cubeC.removeChild(e.sprite);})
-       cubes = []
-       bestCount.innerText = `Best Of Last Gen: ${e.x}`
+        bestCount.innerText = `Best Of Last Gen: ${e.x}`
 
-        for (let i = 0; i < 4; i++) {
+          for (let i = 0; i < 4; i++) {
+          
+            let sprite = new Cube(start,start,(e.sx+(H.getRandom(-1,1))),(e.sy+(H.getRandom(-1,1))),app,cubeC)
+            cubes.push(sprite)
         
-          let sprite = new Cube(start,start,(e.sx+(H.getRandom(-1,1))),(e.sy+(H.getRandom(-1,1))),app,cubeC)
-          cubes.push(sprite)
-      
-        
-        } 
-        cd = 0;
-        gen += 1;
-      }
-
-      
-      
-
-    }
-
-    if(cubes.length == 0 && cd == 4) {
-      
-      for(var i = 0; i < ds.length; i++)
-      {
-        var currentNumber = ds[i];
-        var nextNumber = ds[i+1];
-        if(currentNumber > nextNumber){
-          ds[i] = nextNumber;
-          ds[i+1] = currentNumber;
+          
+          } 
+          cd = 0;
+          gen += 1;
         }
-      }
-      for (let i = 0; i < 4; i++) {
-        let win = deadcubes[ds[ds.length-1]]
-        console.log(win)
-        bestCount.innerText = `Best Of Last Gen: ${ds[ds.length-1]}`
-        let sprite = new Cube(start,start,(win[0]+(H.getRandom(-1,1))),(win[1]+(H.getRandom(-1,1))),app,cubeC)
-        cubes.push(sprite)
-      
+
         
+        
+
       }
-      ds = []
-      cd = 0
-      gen += 1;
-     
-    }
+
+      if(cubes.length == 0 && cd == 4) {
+        
+        for(var i = 0; i < ds.length; i++)
+        {
+          var currentNumber = ds[i];
+          var nextNumber = ds[i+1];
+          if(currentNumber > nextNumber){
+            ds[i] = nextNumber;
+            ds[i+1] = currentNumber;
+          }
+        }
+        for (let i = 0; i < 4; i++) {
+          let win = deadcubes[ds[ds.length-1]]
+          console.log(win)
+          bestCount.innerText = `Best Of Last Gen: ${ds[ds.length-1]}`
+          let sprite = new Cube(start,start,(win[0]+(H.getRandom(-1,1))),(win[1]+(H.getRandom(-1,1))),app,cubeC)
+          cubes.push(sprite)
+        
+          
+        }
+        ds = []
+        cd = 0
+        gen += 1;
       
+      }
+
+    }  
     
     
 
-    })
+  })
+
 }, app)
 
