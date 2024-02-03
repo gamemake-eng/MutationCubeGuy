@@ -37,4 +37,6 @@ export const setUpdate = (update, app) => {
 
 export const clamp = (val, min, max) => Math.min(Math.max(val, min), max)
 
-
+export function getRandom(min, max) {
+	return Math.random() * (max - min) + min;
+  }
