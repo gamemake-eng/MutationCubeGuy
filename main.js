@@ -5,6 +5,13 @@ import * as H from './helper.js'
 //ds = distances of dead cubes
 //cd = # of cubes dead
 
+//Steps
+//calulate the best of the last gen
+//mutate the best of the last gen
+//create new cubes with the mutated values
+//repeat
+
+
 import {Cube, distances, deadcubes} from './entites/cube.js'
 let start = 32;
 let app = H.createStage({width:window.innerWidth, height:window.innerHeight})
