@@ -56,6 +56,11 @@ H.setUpdate(() => {
         
       }
 
+      if (e.x > app.screen.width) {
+        e.x = start
+        e.y = start
+      }
+
     }else{
 
       if(e.state == 'dead'){
@@ -77,7 +82,8 @@ H.setUpdate(() => {
           cubes.forEach((e,i) => {cubeC.removeChild(e.sprite);})
           cubes = []
           let sprite = new Cube(start,start,bestsx,bestsy,app,cubeC)
-        cubes.push(sprite)
+          cubes.push(sprite)
+          
         }else{
         cubes.forEach((e,i) => {cubeC.removeChild(e.sprite);})
         cubes = []

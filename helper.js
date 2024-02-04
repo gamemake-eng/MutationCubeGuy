@@ -1,4 +1,9 @@
 import * as PIXI from 'pixi.js';
+
+/**
+ * Creates PIXIJS stage
+ * @param {Object} options - Project settings
+ */
 export const createStage = (options) => {
 	let app = new PIXI.Application(options);
 	document.body.appendChild(app.view);
