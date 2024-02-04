@@ -1,6 +1,7 @@
 import './style.css'
 import * as PIXI from 'pixi.js';
 import * as H from './helper.js'
+import imgUrl from './cube.png'
 
 //ds = distances of dead cubes
 //cd = # of cubes dead
