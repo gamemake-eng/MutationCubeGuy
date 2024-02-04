@@ -1,7 +1,4 @@
 import './style.css'
-import * as PIXI from 'pixi.js';
-import * as H from './helper.js'
-import imgUrl from './cube.png'
 
 //ds = distances of dead cubes
 //cd = # of cubes dead
@@ -13,22 +10,25 @@ import imgUrl from './cube.png'
 //repeat
 
 
-import {Cube, distances, deadcubes} from './entites/cube.js'
+import * as PIXI from 'pixi.js';
+import * as H from './helper.js';
+import { Cube, distances, deadcubes } from './entites/cube.js';
+
 let start = 32;
-let app = H.createStage({width:window.innerWidth, height:window.innerHeight})
+let app = H.createStage({ width: window.innerWidth, height: window.innerHeight });
 let cubeC = H.createGroup(app);
 let cubes = [];
 let ds = [];
 let cd = 0;
 let gen = 0;
 
-let simdone = false
+let simdone = false;
 let bestsx = 0;
 let bestsy = 0;
 
-let deadCount = document.getElementById("dead")
-let bestCount = document.getElementById("best")
-let genCount = document.getElementById("generation")
+let deadCount = document.getElementById("dead");
+let bestCount = document.getElementById("best");
+let genCount = document.getElementById("generation");
 
 for (let i = 0; i < 4; i++) {
   let sprite = new Cube(start,start,(Math.random()*3)+1,(Math.random()*3)+1,app,cubeC)

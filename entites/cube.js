@@ -1,4 +1,5 @@
 import * as H from '../helper.js'
+
 const States = Object.freeze({
     ALIVE: "alive",
     DEAD: "dead"
