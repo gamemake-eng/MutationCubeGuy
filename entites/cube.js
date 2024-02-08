@@ -17,7 +17,8 @@ export class Cube {
         this.sx = sx
         this.sy = sy
         this.state = States.ALIVE;
-        this.sprite = H.createSprite("../cube.png",this.x,this.y,this.app, g)
+        this.sprite = H.createSprite("../cube.png", this.x, this.y, this.app, g)
+        this.cap = false;
         this.deadcubes = {}
     }
 
@@ -25,9 +26,15 @@ export class Cube {
         this.sprite.x = this.x
         this.sprite.y = this.y
         if(this.state==States.ALIVE){
-            H.clamp(this.sx, -10, 10)
-            this.x += this.sx
-            this.y += this.sy
+            
+            if(this.cap){
+                this.x += this.sx/2
+                this.y += this.sy/2
+            } else {
+                this.x += this.sx
+                this.y += this.sy
+            }
+            
 
             if(this.x < 0){
 

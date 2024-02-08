@@ -29,6 +29,8 @@ let bestsy = 0;
 let deadCount = document.getElementById("dead");
 let bestCount = document.getElementById("best");
 let genCount = document.getElementById("generation");
+let forever = document.getElementById("foreverbox");
+let capspeed = document.getElementById("capspeed");
 
 for (let i = 0; i < 4; i++) {
   let sprite = new Cube(start,start,(Math.random()*3)+1,(Math.random()*3)+1,app,cubeC)
@@ -40,7 +42,13 @@ for (let i = 0; i < 4; i++) {
 
 
 H.setUpdate(() => {
-  cubes.forEach((e,i) => {
+  cubes.forEach((e, i) => {
+    
+    if (capspeed.checked) {
+      e.cap = true
+    } else {
+      e.cap = false
+    }
     
     e.update();
     e.deadcubes = deadcubes
@@ -75,20 +83,22 @@ H.setUpdate(() => {
 
       if(e.x > app.screen.width){
         
-        if(cd == 0){
-          bestCount.innerText = `Best Of Last Gen: ${e.x} Best X speed: ${e.sx}  Best Y speed: ${e.sy}`
-          bestsx = e.sx
-          bestsy = e.sy
-          simdone = true
-          cubes.forEach((e,i) => {cubeC.removeChild(e.sprite);})
-          cubes = []
-          let sprite = new Cube(start,start,bestsx,bestsy,app,cubeC)
-          cubes.push(sprite)
+        if (cd == 0 && (!forever.checked)) {
+          if (!forever.checked) {
+            bestCount.innerText = `Best Of Last Gen: ${e.x} Best X speed: ${e.sx}  Best Y speed: ${e.sy}`
+            bestsx = e.sx
+            bestsy = e.sy
+            simdone = true
+            cubes.forEach((e, i) => { cubeC.removeChild(e.sprite); })
+            cubes = []
+            let sprite = new Cube(start, start, bestsx, bestsy, app, cubeC)
+            cubes.push(sprite)
+          }
           
         }else{
-        cubes.forEach((e,i) => {cubeC.removeChild(e.sprite);})
-        cubes = []
-        bestCount.innerText = `Best Of Last Gen: ${e.x}`
+          cubes.forEach((e,i) => {cubeC.removeChild(e.sprite);})
+          cubes = []
+          bestCount.innerText = `Best Of Last Gen: ${e.x}`
 
           for (let i = 0; i < 4; i++) {
           
