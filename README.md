@@ -1,5 +1,5 @@
 # MutationCubeGuy
-### A half assed attempt to make a evolution simulator (Mutation algorithm)
+### A half assed attempt to implement a Mutation algorithm
 
 ## How it works (in maybe simple terms)
 1. Creates 4 cubes and gives it random x and y speed
