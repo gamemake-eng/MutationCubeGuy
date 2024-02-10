@@ -22,6 +22,10 @@ let ds = [];
 let cd = 0;
 let gen = 0;
 
+let cubenum = 4;
+
+let run = false;
+
 let simdone = false;
 let bestsx = 0;
 let bestsy = 0;
@@ -31,17 +35,32 @@ let bestCount = document.getElementById("best");
 let genCount = document.getElementById("generation");
 let forever = document.getElementById("foreverbox");
 let capspeed = document.getElementById("capspeed");
+let runbutton = document.getElementById("runbutton");
+let numcubebox = document.getElementById("cubenum");
 
-for (let i = 0; i < 4; i++) {
-  let sprite = new Cube(start,start,(Math.random()*3)+1,(Math.random()*3)+1,app,cubeC)
-  cubes.push(sprite)
+runbutton.addEventListener("click", () => {
+  if (cubes.length == 0) {
+    cubenum = numcubebox.value
+    numcubebox.disabled = true
+    for (let i = 0; i < cubenum; i++) {
+      let sprite = new Cube(start,start,(Math.random()*3)+1,(Math.random()*3)+1,app,cubeC)
+      cubes.push(sprite)
 
-  
-}
+      
+    }
+  }
+  run = !run;
+  if (run) {
+    runbutton.innerText = "Stop"
+  } else {
+    runbutton.innerText = "Run"
+  }
+})
 
 
 
 H.setUpdate(() => {
+  
   cubes.forEach((e, i) => {
     
     if (capspeed.checked) {
@@ -49,9 +68,11 @@ H.setUpdate(() => {
     } else {
       e.cap = false
     }
+    if (run) {
+      e.update();
+      e.deadcubes = deadcubes
+    }
     
-    e.update();
-    e.deadcubes = deadcubes
     genCount.innerText = `Generation: ${gen}`
     deadCount.innerText = `Dead: ${cd}`
     if(simdone){
@@ -95,20 +116,23 @@ H.setUpdate(() => {
             cubes.push(sprite)
           }
           
-        }else{
+        } else {
+          
           cubes.forEach((e,i) => {cubeC.removeChild(e.sprite);})
           cubes = []
           bestCount.innerText = `Best Of Last Gen: ${e.x}`
+          let gennext = gen + 1
 
-          for (let i = 0; i < 4; i++) {
+          for (let i = 0; i < cubenum; i++) {
           
             let sprite = new Cube(start,start,(e.sx+(H.getRandom(-1,1))),(e.sy+(H.getRandom(-1,1))),app,cubeC)
             cubes.push(sprite)
+            gen = gennext
         
           
           } 
           cd = 0;
-          gen += 1;
+          
         }
 
         
@@ -116,7 +140,7 @@ H.setUpdate(() => {
 
       }
 
-      if(cubes.length == 0 && cd == 4) {
+      if(cubes.length == 0 && cd == cubenum) {
         
         for(var i = 0; i < ds.length; i++)
         {
@@ -127,7 +151,7 @@ H.setUpdate(() => {
             ds[i+1] = currentNumber;
           }
         }
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < cubenum; i++) {
           let win = deadcubes[ds[ds.length-1]]
           console.log(win)
           bestCount.innerText = `Best Of Last Gen: ${ds[ds.length-1]}`
