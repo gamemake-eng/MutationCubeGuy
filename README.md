@@ -12,7 +12,7 @@
 - Pixi.js for rendering
 - Vite for bundling
 - Yeah thats it. That's really it!
-- Also F*CK Manny (DOWK)
+- OwO
 
 # How to run
 1. With node.js and vite installed go into the directory
